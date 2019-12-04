@@ -5,17 +5,16 @@
 
 # ## Quantum Volume
 # ---
-# 
+#
 # * **Last Updated:** August 6, 2019
 # * **Requires:** qiskit-terra 0.8, qiskit-ignis 0.1.1, qiskit-aer 0.2
-# 
-# 
+#
+#
 # ## Introduction
-# 
-# **Quantum Volume (QV)** is a method to verify device performance and a metric to quantify the computational power of a quantum device.  The method is based on the paper "Validating quantum computers using randomized model circuits" (https://arxiv.org/abs/1811.12926). 
-# 
+#
+# **Quantum Volume (QV)** is a method to verify device performance and a metric to quantify the computational power of a quantum device.  The method is based on the paper "Validating quantum computers using randomized model circuits" (arxiv.org/abs/1811.12926). 
+#
 # This notebook gives an example for how to use the ``ignis.verification.quantum_volume`` module. This particular example shows how to run up to depth 6 quantum volume circuits and will run them using the noisy Aer simulator.
-
 
 
 #Import general libraries (needed for functions)
@@ -36,8 +35,6 @@ import qiskit.ignis.verification.quantum_volume as qv
 # 
 # In this example we have 6 qubits Q0,Q1,Q3,Q5,Q7,Q10. We are going to look at subsets up to the full set.
 
-
-
 #Qubit list
 qubit_lists = [[0,1,3],[0,1,3,5],[0,1,3,5,7],[0,1,3,5,7,10]]
 ntrials = 50    # Feel free to tinker with this integer
@@ -55,7 +52,6 @@ qv_circs_nomeas[0] = qiskit.compiler.transpile(qv_circs_nomeas[0], basis_gates=[
 
 # As an example, we print the circuit corresponding to the first QV sequence. Note that the ideal circuits are run on the first n qubits (where n is the number of qubits in the subset).
 
-
 print(qv_circs_nomeas[0][0])
 
 
@@ -70,9 +66,7 @@ for trial in range(ntrials):
     print('Simulating trial %d'%trial)
     ideal_results.append(qiskit.execute(qv_circs_nomeas[trial], backend=backend, optimization_level=0).result())
 
-
 # Next, load the ideal results into a quantum volume fitter
-
 
 qv_fitter = qv.QVFitter(qubit_lists=qubit_lists)
 qv_fitter.add_statevectors(ideal_results)
